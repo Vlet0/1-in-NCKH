@@ -228,6 +228,87 @@ const EVENTS=[
   {l:"Nhắn cho GVHD hỏi thăm",fx:{mor:5,adv:3}},
   {l:"Tiếp tục nhồi code trong tuyệt vọng",fx:{prog:2,mor:-9}}]}
 ];
+const FLAVOR={
+  read:[
+    "Bạn ngồi đọc paper từ sáng đến chiều, mắt mờ dần nhưng đầu óc sáng hơn một chút.",
+    "Một câu trích dẫn trong bài báo khiến bạn dừng lại và nhìn ra cửa sổ một lúc.",
+    "Ba tab PDF mở cùng lúc. Bạn highlight rồi lại xóa highlight, chưa biết cái nào quan trọng hơn.",
+    "Bạn tìm được một bài survey 2023 — cảm giác như vừa tìm được bản đồ giữa rừng.",
+    "Đọc related work xong, bạn nhận ra có ít nhất hai nhóm đã làm gần giống ý tưởng của mình.",
+    "Bạn ghi chú vội vào cuốn sổ nhỏ, sợ ý tưởng vừa nảy ra sẽ bay mất trước khi mở máy.",
+    "Một footnote dẫn đến một bài khác, rồi bài đó dẫn đến ba bài nữa. Rabbit hole quen thuộc.",
+    "Bạn đọc lại đoạn abstract lần thứ tư. Lần này mới thực sự hiểu họ đang nói gì.",
+  ],
+  code:[
+    "Terminal đỏ lòm. Bạn nhìn stacktrace, thở dài, rồi bắt đầu lại từ đầu.",
+    "Một hàm cuối cùng chạy đúng sau hai ngày debug. Bạn gõ vào chat nhóm: 'DONE!!!' rồi ngồi nhìn màn hình.",
+    "Git blame cho thấy chính bạn viết dòng code đang gây lỗi, cách đây ba tuần.",
+    "Bạn đặt tên biến là `temp2_final_v3`. Biết là không nên, vẫn để vậy.",
+    "Stack Overflow có câu hỏi y chang vấn đề của bạn, từ năm 2014, không có câu trả lời nào được chấp nhận.",
+    "Refactor xong một đoạn code, nhìn lại thấy đẹp hơn hẳn. Nhỏ thôi, nhưng thỏa mãn.",
+    "Bạn chạy thử pipeline lần đầu. Không crash. Kết quả vô nghĩa, nhưng ít nhất không crash.",
+    "Commit message hôm nay: 'fix'. Không thêm gì. Bạn tự hứa sẽ viết rõ hơn vào lần sau.",
+  ],
+  exp:[
+    "Model chạy được 40% thì dừng vì hết RAM. Bạn giảm batch size xuống rồi đi pha cà phê.",
+    "Kết quả lần này thấp hơn baseline. Bạn ngồi nhìn số liệu, đầu óc quay đủ thứ giả thuyết.",
+    "Lần đầu tiên accuracy vượt 80%. Bạn chạy lại hai lần để chắc chắn không phải bug.",
+    "GPU chạy nóng đến mức quạt kêu như máy bay cất cánh. Bạn tiếp tục.",
+    "Bạn đặt thí nghiệm chạy qua đêm. Sáng dậy xem log — crash sau 3 tiếng vì lỗi index.",
+    "Ablation study cho thấy một module bạn mất cả tuần làm không giúp ích gì. Bạn xóa nó đi.",
+    "Lần này thử với dataset khác. Con số thay đổi hoàn toàn — tốt hay xấu, chưa rõ.",
+    "Bạn vẽ biểu đồ learning curve. Nó hội tụ — đẹp hơn bạn mong đợi.",
+  ],
+  write:[
+    "Bạn nhìn trang trắng 20 phút trước khi gõ được câu đầu tiên của phần Introduction.",
+    "Sửa lại cùng một câu bảy lần. Lần thứ tám quay về gần giống bản gốc.",
+    "Viết xong một đoạn, đọc lại thấy ổn. Cảm giác này hiếm, cần ghi nhận.",
+    "GVHD comment: 'Cần rõ ràng hơn.' Bạn nhìn đoạn văn, không chắc rõ hơn nghĩa là gì.",
+    "Bảng kết quả cuối cùng đã vào đúng chỗ. Nhìn tổng thể bài bắt đầu có hình hài.",
+    "Bạn đọc lại related work mình viết từ tháng trước — viết lại gần hết. Tốt hơn nhiều.",
+    "Abstract viết đi viết lại. Khó nhất là tóm 24 tháng vào 150 từ.",
+    "Copy-paste bảng số liệu vào LaTeX, format tự vỡ. Thêm 30 phút để sắp lại.",
+  ],
+  meet:[
+    "GVHD hỏi một câu bạn chưa nghĩ tới. Bạn im lặng mất mười giây, rồi gật đầu.",
+    "Buổi họp kéo dài gấp đôi dự kiến, nhưng bạn về với danh sách việc rõ hơn trước nhiều.",
+    "Thầy/cô vẽ sơ đồ lên bảng, giải thích trong ba phút điều bạn loay hoay suốt hai tuần.",
+    "GVHD gợi ý một hướng mới. Bạn ghi lại, chưa chắc có dùng không, nhưng cất đó đã.",
+    "Cuối buổi họp, GVHD nói: 'Tiến độ ổn đấy.' Ngắn thôi, nhưng đủ để bạn thở phào.",
+    "Bạn trình bày slide, đến slide thứ tư thì GVHD dừng lại hỏi chi tiết. Phần còn lại bỏ qua.",
+    "Email cảm ơn sau buổi họp — nhỏ, nhưng bạn vẫn gửi.",
+  ],
+  rest:[
+    "Bạn ngủ đủ tám tiếng lần đầu tiên trong hai tuần. Sáng dậy đầu óc nhẹ hơn hẳn.",
+    "Một buổi chiều không mở laptop. Cảm giác vừa nhẹ nhõm vừa tội lỗi.",
+    "Bạn đi bộ quanh khu ký túc, không nghĩ gì về đề tài. Được khoảng mười phút thì lại nghĩ.",
+    "Xem phim với bạn cùng phòng. Lần đầu cười thoải mái sau nhiều ngày căng thẳng.",
+    "Bạn dọn lại bàn làm việc. Tìm thấy ba tờ ghi chú từ tháng trước mà quên mất.",
+    "Một ngày không có deadline, không có meeting. Bạn ngồi đọc sách không liên quan đến nghiên cứu.",
+  ]
+};
+// Chọn ngẫu nhiên một flavor log theo focus và trạng thái
+function flavorLog(){
+  const pool=FLAVOR[S.focus]||[];
+  if(!pool.length)return;
+  // Tránh lặp liên tiếp: lưu index dùng gần nhất
+  if(!S.lastFlavor)S.lastFlavor={};
+  const last=S.lastFlavor[S.focus]??-1;
+  let idx;
+  do{idx=RI(0,pool.length-1)}while(idx===last&&pool.length>1);
+  S.lastFlavor[S.focus]=idx;
+
+  // Thêm câu bổ sung theo trạng thái
+  const extras=[];
+  if(S.mor<30)extras.push("Nhưng hôm nay bạn thực sự không có sức.");
+  else if(S.mor>80)extras.push("Năng lượng hôm nay tốt hơn mọi khi.");
+  if(S.fund<15&&S.focus==="exp")extras.push("Tài khoản cloud gần hết — mỗi lần chạy đều tính toán kỹ.");
+  if(S.adv>75&&S.focus==="meet")extras.push("Mối quan hệ với GVHD đang rất tốt, buổi họp diễn ra thoải mái.");
+
+  const txt=pool[idx]+(extras.length?" "+pick(extras):"");
+  log(txt);
+}
+
 const MILES={3:["Vì sao bạn bắt đầu?","Bạn làm NCKH vì tò mò, vì điểm cộng hay vì thầy giao? Điều đó đổi cách bạn làm việc thế nào?"],
  9:["Kết quả chưa như ý","Khi thí nghiệm không ra như mong đợi, nguyên nhân nằm ở dữ liệu, mô hình hay chính giả thuyết của bạn?"],
  15:["Điều gì khiến đáng giá?","Nếu công trình này không được đăng ở đâu cả, bạn vẫn thấy xứng đáng chứ? Vì sao?"],
@@ -432,6 +513,7 @@ function step(){
   S.fund=cl(S.fund+f.f);
   S.adv=cl(S.adv+f.a-1);
   if(S.focus==="exp"&&S.fund<=0&&S.m%3===0)log("Hết kinh phí, thí nghiệm chậm hẳn lại.","bad");
+  flavorLog();
   const mo=$("mo");mo.classList.remove("bump");void mo.offsetWidth;mo.classList.add("bump");
   ui();push();
   if(S.mor<=0)return finish("burnout");
