@@ -349,12 +349,12 @@ function preview(seed){
       </ul>
     </div>
     <div class="row" style="gap:10px">
-      <button class="pri" id="ok-preview" style="flex:1">✦ Bắt đầu hành trình</button>
-      <button id="reroll-preview" style="flex:0 0 auto">🎲 Số phận khác</button>
+      <button class="pri" id="okpv" style="flex:1">✦ Bắt đầu hành trình</button>
+      <button id="rrpv" style="flex:0 0 auto">🎲 Số phận khác</button>
     </div>`);
 
-  $("ok-preview").onclick=()=>{ closeModal(); born(tmp); };
-  $("reroll-preview").onclick=()=>{ closeModal(); preview(); };
+  $("mbox").querySelector("#okpv").onclick=()=>{ closeModal(); born(tmp); };
+  $("mbox").querySelector("#rrpv").onclick=()=>{ closeModal(); preview(); };
 }
 
 function born(tmp){
