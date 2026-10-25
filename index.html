@@ -97,7 +97,7 @@ input,select{font:inherit;padding:8px;border-radius:10px;border:1px solid var(--
     <b>Trọng tâm tháng này</b>
     <div class="row" id="foci" style="margin-top:8px"></div>
     <div class="row" style="margin-top:12px">
-      <button id="pz">⏸ Dừng</button><button data-sp="1" class="on sp">1×</button><button data-sp="2" class="sp">2×</button><button data-sp="4" class="sp">4×</button>
+      <button id="pz">⏸ Dừng</button><button data-sp="1" class="on sp">1×</button><button data-sp="2" class="sp">2×</button><button data-sp="4" class="sp">4×</button><button data-sp="6" class="sp">6×</button><button data-sp="10" class="sp">10×</button>
       <button id="auto">Chế độ tự động: tắt</button>
     </div>
   </div>
@@ -606,7 +606,7 @@ function epi(why,sc){const a=[];
 function confetti(){const c=["#e0698a","#f0b84a","#5cc08a","#6aa8f0"];for(let i=0;i<46;i++){const e=document.createElement("i");e.className="conf";e.style.cssText=`left:${Math.random()*100}vw;background:${c[i%4]};animation-delay:${Math.random()*.8}s;animation-duration:${2+Math.random()*1.6}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),4600)}}
 function finish(why){
   run++;closeModal();
-  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.6+S.adv*.1+S.skill*.1+RI(-10,10)+(S.prog>=100?18:-(100-S.prog)*.2))));
+  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.65+S.adv*.12+S.skill*.1+RI(-6,6)+(S.prog>=100?22:-(100-S.prog)*.15))));
   const [out,sub,tone]=ending(why,sc),ep=epi(why,sc);
   $("game").classList.add("hid");$("end").classList.remove("hid");
   $("end").innerHTML=`<div class="mu">Kết thúc sau ${S.m} tháng</div><h1 style="font-size:34px">${out}</h1><p>${sub}</p>
