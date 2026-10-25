@@ -202,7 +202,31 @@ const EVENTS=[
   {l:"Từ chối vì sợ chậm tiến độ",fx:{}}]},
  {t:"Mất điện cả khu",d:"Phòng lab mất điện suốt một buổi chiều.",o:[
   {l:"Tranh thủ đọc paper trên điện thoại",fx:{qual:3},b:1},
-  {l:"Ngồi chờ có điện",fx:{prog:-2}}]}
+  {l:"Ngồi chờ có điện",fx:{prog:-2}}]},
+ {t:"Hạn nộp chỉ còn 3 tháng",c:s=>s.m>=21&&s.prog<80,d:"Cố vấn nhắc nhở: bản thảo cần nộp hội đồng trong 3 tháng nữa. Tiến độ của bạn đang chậm.",o:[
+  {l:"Lập kế hoạch sprint 3 tuần một, cắt mọi việc ngoài luồng",fx:{prog:8,mor:-6,adv:3},b:1},
+  {l:"Nhờ GVHD giúp ưu tiên nội dung cốt lõi",fx:{prog:5,adv:6,mor:-2}},
+  {l:"Cố gắng tự xoay sở",fx:{prog:3,mor:-4}}]},
+ {t:"Hội đồng yêu cầu nộp sớm hơn dự kiến",c:s=>s.m>=19&&s.prog<90,d:"Lịch bảo vệ bị đẩy lên sớm 6 tuần do lịch của giảng viên phản biện. Bạn không còn nhiều thời gian.",o:[
+  {l:"Họp khẩn với GVHD, xác định phần bắt buộc phải có",fx:{adv:5,prog:4,mor:-5},b:1},
+  {l:"Làm liên tục không ngủ để bù",fx:{prog:7,mor:-12},r:{p:.5,fx:{mor:-8},m:"Sức khỏe suy giảm, hiệu suất tụt sau đó."}},
+  {l:"Xin hoãn bảo vệ với lý do y tế",fx:{prog:-1,adv:-4,mor:3}}]},
+ {t:"Thành viên xin rút khỏi nhóm",c:s=>s.team>1&&s.m>=15,d:"Một thành viên vừa nhắn tin xin rút vì áp lực cá nhân. Phần việc của người đó vẫn còn dang dở.",o:[
+  {l:"Chia lại việc, cảm ơn bạn ấy và tiếp tục",fx:{prog:-3,mor:-3,adv:2},b:1,tm:-1},
+  {l:"Thuyết phục bạn ở lại bằng cách giảm tải cho bạn",fx:{prog:-5,mor:2,adv:1},tm:0},
+  {l:"Không nói gì, tự gánh toàn bộ",fx:{prog:-4,mor:-8}}]},
+ {t:"Reviewer phản hồi bản nháp",c:s=>s.prog>=70&&s.qual>=35,d:"GVHD gửi lại bản thảo với 23 comment. Nhiều ý đòi viết lại từ đầu.",o:[
+  {l:"Ưu tiên sửa các ý cốt lõi trước, phần nhỏ để sau",fx:{qual:7,prog:2,adv:4},b:1},
+  {l:"Sửa từng comment theo thứ tự từ trên xuống",fx:{qual:4,prog:-2,adv:2}},
+  {l:"Phản bác những ý bạn không đồng ý",fx:{qual:2,adv:-5,mor:-3}}]},
+ {t:"Tài khoản cloud hết hạn giữa chừng",c:s=>s.focus==="exp"||s.prog>=40,d:"Tài khoản Colab Pro và AWS hết tiền đúng lúc cần chạy thí nghiệm cuối.",o:[
+  {l:"Xin tài khoản khoa hoặc mượn credit của bạn",fx:{fund:10,prog:-1,adv:2},b:1},
+  {l:"Tự bỏ tiền túi gia hạn",fx:{fund:-15,prog:2}},
+  {l:"Tối ưu lại code để chạy trên máy cá nhân",fx:{qual:-2,prog:1,mor:-3}}]},
+ {t:"Nghi ngờ bản thân giữa đêm",c:s=>s.mor<55&&s.m>=12,d:"3 giờ sáng, nhìn bản thảo bạn tự hỏi liệu công trình này có ý nghĩa gì không.",o:[
+  {l:"Đọc lại mục tiêu ban đầu và nhật ký dự án",fx:{mor:7,qual:1},b:1},
+  {l:"Nhắn cho GVHD hỏi thăm",fx:{mor:5,adv:3}},
+  {l:"Tiếp tục nhồi code trong tuyệt vọng",fx:{prog:2,mor:-9}}]}
 ];
 const MILES={3:["Vì sao bạn bắt đầu?","Bạn làm NCKH vì tò mò, vì điểm cộng hay vì thầy giao? Điều đó đổi cách bạn làm việc thế nào?"],
  9:["Kết quả chưa như ý","Khi thí nghiệm không ra như mong đợi, nguyên nhân nằm ở dữ liệu, mô hình hay chính giả thuyết của bạn?"],
@@ -393,7 +417,15 @@ function ending(why,sc){
   if(F.cheat&&Math.random()<.65)return["Bị phát hiện gian lận học thuật","Số liệu bị chỉnh sửa không qua nổi bước tái lập. Bài bị rút và bạn phải giải trình trước hội đồng khoa học.","bad"];
   if(F.leak&&sc<75)return["Bài bị rút lại sau khi đăng","Cộng đồng tái lập kết quả và phát hiện rò rỉ dữ liệu. Một bài học đắt giá về kiểm chứng.","bad"];
   if(F.dispute&&S.adv<55&&sc>=48)return["Bài được nhận, nhóm thì rạn nứt","Tranh chấp thứ tự tác giả khiến khoa phải vào cuộc phân xử. Công bố vẫn còn, tình đồng đội thì không.","bad"];
-  if(S.prog<100&&S.m>=24&&sc<45)return["Lỡ hạn, bài chưa hoàn thành","24 tháng trôi qua mà bản thảo vẫn dang dở. Bạn có nền tảng để làm tiếp, chỉ là không kịp lần này.","bad"];
+  if(S.prog<100&&S.m>=24){
+    if(S.prog<30)return["Dự án dừng giữa chừng","Tiến độ chưa đến 30% sau 24 tháng. Hướng đi chưa rõ, nền tảng chưa vững — nhưng đây là dữ liệu để bắt đầu lại khôn ngoan hơn.","bad"];
+    if(S.prog<55&&S.adv<40)return["Lạc đường không có người dẫn","Bạn làm không ít, nhưng không có đủ phản hồi từ GVHD để định hướng đúng. Bản thảo còn xa điểm kết.","bad"];
+    if(S.prog<55)return["Lỡ hạn vì trải mỏng","Bạn thử làm quá nhiều thứ cùng lúc. Khi hạn đến, không mảng nào đủ sâu. Lần sau: ít hơn, sâu hơn.","bad"];
+    if(S.prog<75&&S.mor<35)return["Kiệt sức trước vạch đích","Bài chưa xong mà bạn đã cạn năng lượng. Đôi khi tốc độ bền bỉ quan trọng hơn tốc độ ban đầu.","bad"];
+    if(S.prog<75)return["Bản thảo nộp muộn, hội đồng hoãn xét","Tiến độ trên 50% nhưng không kịp deadline. Hội đồng cho cơ hội nộp bổ sung với điểm trừ.","bad"];
+    if(S.prog<90&&S.qual>=50)return["Nộp muộn với bản thảo chất lượng","Bài nộp trễ nhưng chất lượng khoa học thuyết phục hội đồng chấp nhận có điều kiện. Sửa thêm 2 tuần là xong.",""];
+    return["Sát giờ mới nộp","Bản thảo nộp vào phút cuối. Hội đồng chấp nhận, nhưng phản biện chỉ ra nhiều phần cần bổ sung sau bảo vệ.",""];
+  }
   if(F.startup&&sc>=52)return["Đề tài trở thành sản phẩm khởi nghiệp","Doanh nghiệp đồng hành đưa kết quả của bạn ra thị trường. Bạn vừa có bài báo, vừa có khách hàng đầu tiên.","good"];
   if(sc>=90)return["Giải bài báo xuất sắc nhất","Hội đồng chọn bài của bạn trong số hàng trăm bài. Thiết kế thí nghiệm được nhắc đến trong phần trao giải.","good"];
   if(sc>=78)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
