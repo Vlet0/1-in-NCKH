@@ -585,11 +585,11 @@ function ending(why,sc){
 
   /* ── Hoàn thành tháng 19–24 (đúng hạn hoặc sát hạn) ── */
   if(sc>=93)return["Giải bài báo xuất sắc nhất","Hội đồng chọn bài của bạn trong số hàng trăm bài. Thiết kế thí nghiệm được nhắc đến trong phần trao giải.","good"];
-  if(sc>=82)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
-  if(sc>=55)return["Được nhận đăng tạp chí Q1","Sau một vòng sửa lớn, bài được chấp nhận.","good"];
-  if(sc>=40)return["Được nhận ở tạp chí Q3 hoặc hội nghị khu vực","Không quá hào nhoáng, nhưng đây là công bố đầu tiên của bạn.","good"];
-  if(sc>=28)return["Đoạt giải NCKH sinh viên","Bài chưa đủ sức lên tạp chí, nhưng hội đồng ghi nhận công sức của nhóm.","good"];
-  if(sc>=16)return["Hoàn thành báo cáo kỹ thuật","Chưa đủ để công bố, nhưng đủ để làm nền cho khóa luận tốt nghiệp.",""];
+  if(sc>=85)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
+  if(sc>=75)return["Được nhận đăng tạp chí Q1","Sau một vòng sửa lớn, bài được chấp nhận.","good"];
+  if(sc>=60)return["Được nhận ở tạp chí Q3 hoặc hội nghị khu vực","Không quá hào nhoáng, nhưng đây là công bố đầu tiên của bạn.","good"];
+  if(sc>=42)return["Đoạt giải NCKH sinh viên","Bài chưa đủ sức lên tạp chí, nhưng hội đồng ghi nhận công sức của nhóm.","good"];
+  if(sc>=28)return["Hoàn thành báo cáo kỹ thuật","Chưa đủ để công bố, nhưng đủ để làm nền cho khóa luận tốt nghiệp.",""];
   return["Bị từ chối, nhưng đã học được nhiều","Reviewer 2 nói không. Bạn có những nhận xét chi tiết để làm tốt hơn ở lần sau.",""];
 }
 function epi(why,sc){const a=[];
@@ -606,7 +606,7 @@ function epi(why,sc){const a=[];
 function confetti(){const c=["#e0698a","#f0b84a","#5cc08a","#6aa8f0"];for(let i=0;i<46;i++){const e=document.createElement("i");e.className="conf";e.style.cssText=`left:${Math.random()*100}vw;background:${c[i%4]};animation-delay:${Math.random()*.8}s;animation-duration:${2+Math.random()*1.6}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),4600)}}
 function finish(why){
   run++;closeModal();
-  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.65+S.adv*.12+S.skill*.1+RI(-6,6)+(S.prog>=100?14:-(100-S.prog)*.15))));
+  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.72+S.adv*.14+S.skill*.06+RI(-4,4)+(S.prog>=100?18:-(100-S.prog)*.18))));
   const [out,sub,tone]=ending(why,sc),ep=epi(why,sc);
   $("game").classList.add("hid");$("end").classList.remove("hid");
   $("end").innerHTML=`<div class="mu">Kết thúc sau ${S.m} tháng</div><h1 style="font-size:34px">${out}</h1><p>${sub}</p>
