@@ -568,24 +568,24 @@ function ending(why,sc){
 
   /* ── Hoàn thành sớm (≤ 14 tháng) ── */
   if(S.m<=14){
-    if(sc>=72)return["Kỷ lục lab: hoàn thành sau "+S.m+" tháng","Chưa ai trong lab về đích nhanh đến vậy mà vẫn giữ được chất lượng. GVHD đề nghị gửi bài ngay lập tức.","good"];
-    if(sc>=52)return["Xong sớm — bắt đầu vòng sửa bài","Bài hoàn thành trước hạn "+(24-S.m)+" tháng. Thời gian dư được dùng để cải thiện, và bài sẽ tốt hơn nhiều sau đó.","good"];
+    if(sc>=88)return["Kỷ lục lab: hoàn thành sau "+S.m+" tháng","Chưa ai trong lab về đích nhanh đến vậy mà vẫn giữ được chất lượng. GVHD đề nghị gửi bài ngay lập tức.","good"];
+    if(sc>=68)return["Xong sớm — bắt đầu vòng sửa bài","Bài hoàn thành trước hạn "+(24-S.m)+" tháng. Thời gian dư được dùng để cải thiện, và bài sẽ tốt hơn nhiều sau đó.","good"];
     if(sc>=34)return["Về đích sớm nhưng còn thô","Tiến độ xong sớm là lợi thế lớn, nhưng bài còn nhiều chỗ cần trau chuốt. Có đủ thời gian để làm đúng.",""];
     return["Vội vàng không giúp được gì","Bài xong sau "+S.m+" tháng nhưng thiếu chiều sâu. Phản biện trả về yêu cầu làm lại phần thực nghiệm từ đầu.","bad"];
   }
 
   /* ── Hoàn thành đúng nhịp (15–18 tháng) ── */
   if(S.m<=18){
-    if(sc>=78)return["Nộp sớm 6 tháng, chất lượng vượt kỳ vọng","Hội đồng ngạc nhiên khi nhận bản thảo trước hạn 6 tháng mà chất lượng ở mức này. Phản biện không có gì để chê.","good"];
-    if(sc>=60)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Hoàn thành trước hạn giúp bạn có thời gian chọn venue tốt nhất. Tên bạn xuất hiện trong kỷ yếu.","good"];
+    if(sc>=92)return["Nộp sớm 6 tháng, chất lượng vượt kỳ vọng","Hội đồng ngạc nhiên khi nhận bản thảo trước hạn 6 tháng mà chất lượng ở mức này. Phản biện không có gì để chê.","good"];
+    if(sc>=76)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Hoàn thành trước hạn giúp bạn có thời gian chọn venue tốt nhất. Tên bạn xuất hiện trong kỷ yếu.","good"];
     if(sc>=42)return["Được nhận đăng tạp chí Q1","Nộp trước hạn và sau một vòng sửa nhỏ, bài được chấp nhận. Thời gian dự phòng đã cứu bạn.","good"];
     if(sc>=28)return["Về đích sớm, kết quả ổn","Không phải công bố đỉnh cao, nhưng xong trước hạn "+(24-S.m)+" tháng cho bạn dư sức để cải thiện hoặc bắt đầu dự án mới.","good"];
     return["Nhanh nhưng chưa chín","Bài xong trước hạn nhưng phản biện chỉ ra nhiều lỗ hổng. Cần thêm thực nghiệm — may là còn thời gian.",""];
   }
 
   /* ── Hoàn thành tháng 19–24 (đúng hạn hoặc sát hạn) ── */
-  if(sc>=85)return["Giải bài báo xuất sắc nhất","Hội đồng chọn bài của bạn trong số hàng trăm bài. Thiết kế thí nghiệm được nhắc đến trong phần trao giải.","good"];
-  if(sc>=70)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
+  if(sc>=93)return["Giải bài báo xuất sắc nhất","Hội đồng chọn bài của bạn trong số hàng trăm bài. Thiết kế thí nghiệm được nhắc đến trong phần trao giải.","good"];
+  if(sc>=82)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
   if(sc>=55)return["Được nhận đăng tạp chí Q1","Sau một vòng sửa lớn, bài được chấp nhận.","good"];
   if(sc>=40)return["Được nhận ở tạp chí Q3 hoặc hội nghị khu vực","Không quá hào nhoáng, nhưng đây là công bố đầu tiên của bạn.","good"];
   if(sc>=28)return["Đoạt giải NCKH sinh viên","Bài chưa đủ sức lên tạp chí, nhưng hội đồng ghi nhận công sức của nhóm.","good"];
@@ -606,7 +606,7 @@ function epi(why,sc){const a=[];
 function confetti(){const c=["#e0698a","#f0b84a","#5cc08a","#6aa8f0"];for(let i=0;i<46;i++){const e=document.createElement("i");e.className="conf";e.style.cssText=`left:${Math.random()*100}vw;background:${c[i%4]};animation-delay:${Math.random()*.8}s;animation-duration:${2+Math.random()*1.6}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),4600)}}
 function finish(why){
   run++;closeModal();
-  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.65+S.adv*.12+S.skill*.1+RI(-6,6)+(S.prog>=100?22:-(100-S.prog)*.15))));
+  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.65+S.adv*.12+S.skill*.1+RI(-6,6)+(S.prog>=100?14:-(100-S.prog)*.15))));
   const [out,sub,tone]=ending(why,sc),ep=epi(why,sc);
   $("game").classList.add("hid");$("end").classList.remove("hid");
   $("end").innerHTML=`<div class="mu">Kết thúc sau ${S.m} tháng</div><h1 style="font-size:34px">${out}</h1><p>${sub}</p>
