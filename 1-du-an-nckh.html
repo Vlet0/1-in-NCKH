@@ -426,16 +426,38 @@ function ending(why,sc){
     if(S.prog<90&&S.qual>=50)return["Nộp muộn với bản thảo chất lượng","Bài nộp trễ nhưng chất lượng khoa học thuyết phục hội đồng chấp nhận có điều kiện. Sửa thêm 2 tuần là xong.",""];
     return["Sát giờ mới nộp","Bản thảo nộp vào phút cuối. Hội đồng chấp nhận, nhưng phản biện chỉ ra nhiều phần cần bổ sung sau bảo vệ.",""];
   }
+  /* ── Kết cục đặc biệt theo flag ── */
   if(F.startup&&sc>=52)return["Đề tài trở thành sản phẩm khởi nghiệp","Doanh nghiệp đồng hành đưa kết quả của bạn ra thị trường. Bạn vừa có bài báo, vừa có khách hàng đầu tiên.","good"];
+
+  /* ── Hoàn thành sớm (≤ 14 tháng) ── */
+  if(S.m<=14){
+    if(sc>=80)return["Kỷ lục lab: hoàn thành sau "+S.m+" tháng","Chưa ai trong lab về đích nhanh đến vậy mà vẫn giữ được chất lượng. GVHD đề nghị gửi bài ngay lập tức.","good"];
+    if(sc>=62)return["Xong sớm — bắt đầu vòng sửa bài","Bài hoàn thành trước hạn "+( 24-S.m)+" tháng. Thời gian dư được dùng để cải thiện, và bài sẽ tốt hơn nhiều sau đó.","good"];
+    if(sc>=42)return["Về đích sớm nhưng còn thô","Tiến độ xong sớm là lợi thế lớn, nhưng bài còn nhiều chỗ cần trau chuốt. Có đủ thời gian để làm đúng.",""];
+    return["Vội vàng không giúp được gì","Bài xong sau "+S.m+" tháng nhưng thiếu chiều sâu. Phản biện trả về yêu cầu làm lại phần thực nghiệm từ đầu.","bad"];
+  }
+
+  /* ── Hoàn thành đúng nhịp (15–18 tháng) ── */
+  if(S.m<=18){
+    if(sc>=85)return["Nộp sớm 6 tháng, chất lượng vượt kỳ vọng","Hội đồng ngạc nhiên khi nhận bản thảo trước hạn 6 tháng mà chất lượng ở mức này. Phản biện không có gì để chê.","good"];
+    if(sc>=68)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Hoàn thành trước hạn giúp bạn có thời gian chọn venue tốt nhất. Tên bạn xuất hiện trong kỷ yếu.","good"];
+    if(sc>=50)return["Được nhận đăng tạp chí Q1","Nộp trước hạn và sau một vòng sửa nhỏ, bài được chấp nhận. Thời gian dự phòng đã cứu bạn.","good"];
+    if(sc>=35)return["Về đích sớm, kết quả ổn","Không phải công bố đỉnh cao, nhưng xong trước hạn "+( 24-S.m)+" tháng cho bạn dư sức để cải thiện hoặc bắt đầu dự án mới.","good"];
+    return["Nhanh nhưng chưa chín","Bài xong trước hạn nhưng phản biện chỉ ra nhiều lỗ hổng. Cần thêm thực nghiệm — may là còn thời gian.",""];
+  }
+
+  /* ── Hoàn thành tháng 19–24 (đúng hạn hoặc sát hạn) ── */
   if(sc>=90)return["Giải bài báo xuất sắc nhất","Hội đồng chọn bài của bạn trong số hàng trăm bài. Thiết kế thí nghiệm được nhắc đến trong phần trao giải.","good"];
   if(sc>=78)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
   if(sc>=62)return["Được nhận đăng tạp chí Q1","Sau một vòng sửa lớn, bài được chấp nhận.","good"];
   if(sc>=48)return["Được nhận ở tạp chí Q3 hoặc hội nghị khu vực","Không quá hào nhoáng, nhưng đây là công bố đầu tiên của bạn.","good"];
   if(sc>=34)return["Đoạt giải NCKH sinh viên","Bài chưa đủ sức lên tạp chí, nhưng hội đồng ghi nhận công sức của nhóm.","good"];
-  if(sc>=22)return["Hoàn thành thành báo cáo kỹ thuật","Chưa đủ để công bố, nhưng đủ để làm nền cho khóa luận tốt nghiệp.",""];
+  if(sc>=22)return["Hoàn thành báo cáo kỹ thuật","Chưa đủ để công bố, nhưng đủ để làm nền cho khóa luận tốt nghiệp.",""];
   return["Bị từ chối, nhưng đã học được nhiều","Reviewer 2 nói không. Bạn có những nhận xét chi tiết để làm tốt hơn ở lần sau.",""];
 }
 function epi(why,sc){const a=[];
+  if(S.m<=14&&sc>=62)a.push("Hoàn thành sớm "+( 24-S.m)+" tháng — GVHD đề xuất bạn làm thêm một đề tài mở rộng.");
+  if(S.m<=18&&S.m>14&&sc>=50)a.push("Nộp trước hạn giúp bạn có thêm thời gian chọn venue và sửa theo phản biện.");
   if(S.adv>=75)a.push("Giảng viên hướng dẫn mời bạn ở lại lab làm tiếp.");
   if(S.adv<30)a.push("Bạn rời dự án với cảm giác thiếu người dẫn đường.");
   if(S.mor>=70)a.push("Bạn vẫn còn đủ năng lượng cho dự án tiếp theo.");
