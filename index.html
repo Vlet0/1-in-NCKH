@@ -443,7 +443,7 @@ function step(){
     if(pool.length){const e=pool[Math.floor(r()*pool.length)];S.used.push(e.i);return event(e)}
   }
 }
-function openModal(h){S.modal=true;$("mbox").innerHTML=h;$("modal").classList.remove("hid")}
+function openModal(h){if(S)S.modal=true;$("mbox").innerHTML=h;$("modal").classList.remove("hid")}
 function closeModal(){if(S)S.modal=false;$("modal").classList.add("hid")}
 function event(e){
   const opts=e.o.filter(o=>!o.c||o.c(S));
