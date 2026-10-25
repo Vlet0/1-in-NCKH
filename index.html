@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1 dự án NCKH · Bạn sẽ là ai?</title>
+<style>
+:root{--bg:#faf7f2;--card:#fff;--tx:#241f1a;--mu:#6f655b;--ln:#e5ddd1;--ac:#8c1d3c;--ac2:#c2436a;--ok:#2f7d4f;--bad:#b3392f;--bar:#ece4d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17130f;--card:#221c17;--tx:#f2ebe1;--mu:#a99d8e;--ln:#382f27;--ac:#e0698a;--ac2:#f08fab;--ok:#5cc08a;--bad:#ef7f74;--bar:#33291f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17130f;--card:#221c17;--tx:#f2ebe1;--mu:#a99d8e;--ln:#382f27;--ac:#e0698a;--ac2:#f08fab;--ok:#5cc08a;--bad:#ef7f74;--bar:#33291f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+h1{font:italic 700 clamp(34px,8vw,54px)/1.05 Georgia,"Times New Roman",serif;margin:8px 0 6px}
+h1 b{color:var(--ac);font-size:1.5em}
+.mu{color:var(--mu);font-size:14px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:16px;margin:14px 0}
+button{font:inherit;cursor:pointer;border:1px solid var(--ln);background:var(--card);color:var(--tx);padding:9px 14px;border-radius:10px}
+button:hover{border-color:var(--ac)}
+button.pri{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600;padding:12px 22px;font-size:17px}
+button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.hid{display:none!important}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kv{font-size:14px}.kv b{display:block;font-size:12px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.bar{height:9px;background:var(--bar);border-radius:6px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--ac);transition:width .4s}
+.st{font-size:13px}.st span{float:right;color:var(--mu)}
+#log{max-height:260px;overflow:auto;font-size:14px}
+#log div{padding:6px 0;border-bottom:1px solid var(--ln)}
+#log small{color:var(--mu)}
+.good{color:var(--ok)}.bad{color:var(--bad)}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9}
+#modal .box{background:var(--card);border-radius:16px;max-width:520px;width:100%;padding:20px;border:1px solid var(--ln);max-height:90vh;overflow:auto}
+#modal h3{margin:0 0 6px;font-family:Georgia,serif;font-size:22px}
+.opt{display:block;width:100%;text-align:left;margin-top:8px}
+textarea{width:100%;margin-top:10px;font:inherit;padding:8px;border-radius:10px;border:1px solid var(--ln);background:var(--bg);color:var(--tx)}
+.big{font:italic 700 28px/1.2 Georgia,serif;color:var(--ac)}
+ul.n{padding-left:18px;margin:6px 0}
+
+#sky{position:fixed;inset:0;pointer-events:none;z-index:0}
+main{position:relative;z-index:1}
+.st,.hd{position:relative}
+.pop{position:absolute;right:0;top:-6px;font-size:13px;font-weight:700;animation:fl 1.2s ease-out forwards;pointer-events:none}
+.pop.up{color:var(--ok)}.pop.dn{color:var(--bad)}
+@keyframes fl{to{transform:translateY(-22px);opacity:0}}
+.bump{display:inline-block;animation:bp .5s}@keyframes bp{40%{transform:scale(1.25);color:var(--ac)}}
+#tl{display:flex;gap:3px;margin-top:10px}#tl i{flex:1;height:6px;border-radius:3px;background:var(--bar)}
+#tl i.d{background:var(--ac)}#tl i.ms{height:10px;margin-top:-2px;outline:1px solid var(--ac2)}
+#tl i.cur{background:var(--ac2);animation:pl 1s infinite}@keyframes pl{50%{opacity:.35}}
+#mbar{height:3px;background:var(--bar);border-radius:2px;margin-top:6px;overflow:hidden}#mb{height:100%;width:0;background:var(--ac2)}
+.shake{animation:sh .45s}@keyframes sh{20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+.glow{animation:gl .8s}@keyframes gl{30%{box-shadow:0 0 0 3px var(--ok)}}
+#modal .box{animation:pi .25s}@keyframes pi{from{transform:translateY(14px) scale(.96);opacity:0}}
+.conf{position:fixed;top:-14px;width:8px;height:12px;z-index:20;pointer-events:none;animation:cf 2.6s linear forwards}
+@keyframes cf{to{transform:translateY(110vh) rotate(720deg)}}
+.lb div{display:grid;grid-template-columns:1.2fr 2fr auto;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--ln);font-size:14px}
+.me{color:var(--ac);font-weight:700}
+#qr{background:#fff;padding:0;border-radius:10px;display:inline-block;line-height:0;overflow:hidden}
+input,select{font:inherit;padding:8px;border-radius:10px;border:1px solid var(--ln);background:var(--bg);color:var(--tx);max-width:100%}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section id="intro">
+  <div class="mu">Mô phỏng · 24 tháng · Cùng một đề tài, mỗi người một số phận</div>
+  <h1><b>1</b> dự án NCKH</h1>
+  <p>Bạn được “sinh ra” ngẫu nhiên thành một sinh viên với một đề tài, một giảng viên hướng dẫn, một phòng lab và một nhóm. Bạn không chọn được xuất phát điểm, chỉ chọn được cách dùng quỹ thời gian của mình. Sau 24 tháng, phản biện sẽ cho bạn câu trả lời.</p>
+  <button class="pri" id="born">Chơi một mình</button>
+  <p class="mu" id="nonet">Muốn chơi nhiều người? Chạy <code>node server.js</code> trong thư mục chứa game rồi mở địa chỉ hiện ra.</p>
+  <div id="lobby" class="card hid"><b>Chơi cùng nhiều người</b>
+   <p class="mu">Mọi người nhận cùng một đề tài, cùng giảng viên và cùng chuỗi sự cố, rồi xem ai đưa dự án về đích tốt nhất.</p>
+   <div class="row"><input id="nm" maxlength="14" placeholder="Tên của bạn"><button id="jn">Tạo phòng</button></div>
+   <div id="room" class="hid"><div class="row" style="align-items:flex-start;margin-top:12px"><div id="qr"></div>
+    <div><div class="mu">Mã phòng</div><div class="big" id="rc"></div><div class="mu" id="ru" style="word-break:break-all"></div><select id="ipsel" class="hid"></select></div></div>
+    <div class="lb" id="plist" style="margin-top:10px"></div>
+    <button class="pri" id="go" style="margin-top:10px">Bắt đầu cho cả phòng</button><div class="mu" id="wt"></div></div></div>
+  <p class="mu">Cứ mỗi tháng bạn chọn một trọng tâm (đọc, code, thí nghiệm, viết, nghỉ, họp với GVHD). Thỉnh thoảng sẽ có sự cố cần bạn quyết định. Ở tháng 3, 9, 15 và 21, thời gian sẽ dừng lại để hỏi bạn một câu.</p>
+</section>
+
+<section id="game" class="hid">
+  <div class="card" id="prof"></div>
+  <div class="card" id="sc">
+    <div class="row" style="justify-content:space-between"><div class="hd"><b id="mo">Tháng 0/24</b> · <span id="stage"></span> · <span id="vp">0</span>%</div><div class="mu" id="hint"></div></div>
+    <div class="bar" style="height:12px"><i id="bp"></i></div>
+    <div id="tl"></div><div id="mbar"><div id="mb"></div></div>
+    <div class="grid" style="margin-top:12px">
+      <div class="st">Chất lượng khoa học<span id="vq"></span><div class="bar"><i id="bq"></i></div></div>
+      <div class="st">Tinh thần<span id="vm"></span><div class="bar"><i id="bm"></i></div></div>
+      <div class="st">Kinh phí<span id="vf"></span><div class="bar"><i id="bf"></i></div></div>
+      <div class="st">Quan hệ với GVHD<span id="va"></span><div class="bar"><i id="ba"></i></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <b>Trọng tâm tháng này</b>
+    <div class="row" id="foci" style="margin-top:8px"></div>
+    <div class="row" style="margin-top:12px">
+      <button id="pz">⏸ Dừng</button><button data-sp="1" class="on sp">1×</button><button data-sp="2" class="sp">2×</button><button data-sp="4" class="sp">4×</button>
+      <button id="auto">Chế độ tự động: tắt</button>
+    </div>
+  </div>
+  <div class="card hid" id="lbc"><b>Bảng xếp hạng phòng</b><div class="lb" id="lb"></div></div>
+  <div class="card"><b>Nhật ký</b><div id="log"></div></div>
+</section>
+
+<section id="end" class="hid"></section>
+</main>
+<div id="modal" class="hid"><div class="box" id="mbox"></div></div>
+
+<script>
+let RND=Math.random;
+const $=id=>document.getElementById(id);
+const RI=(a,b)=>Math.floor(a+RND()*(b-a+1)),pick=a=>a[RI(0,a.length-1)],cl=v=>Math.max(0,Math.min(100,v));
+const wpick=a=>{let t=a.reduce((x,y)=>x+y.w,0),r=RND()*t;for(const o of a){if((r-=o.w)<0)return o}return a[0]};
+
+const MAJORS=["Khoa học máy tính","Kỹ thuật điện tử viễn thông","Khoa học dữ liệu","Công nghệ thông tin","Toán ứng dụng","Kỹ thuật môi trường"];
+const TOPICS=["Ước lượng tư thế người bằng tín hiệu WiFi","Dự báo mực nước hồ chứa từ ảnh vệ tinh","Điều hướng thị giác zero-shot cho robot","Phát hiện té ngã không cần camera","Nhận dạng cảm xúc từ giọng nói tiếng Việt","Dự báo ngập lụt bằng mô hình không gian trạng thái","Tóm tắt văn bản pháp luật bằng LLM","Chẩn đoán bệnh lá lúa bằng ảnh điện thoại","Dự báo phụ tải điện cho nhà thông minh"];
+const ADVS=[{n:"Tận tâm, họp đều mỗi tuần",s:80,w:3},{n:"Bận rộn, ít khi trả lời email",s:35,w:3},{n:"Nghiêm khắc nhưng góp ý rất trúng",s:65,w:2},{n:"Thả cho học trò tự bơi",s:20,w:2}];
+const LABS=[{n:"Phòng lab có cụm GPU riêng",g:3,w:2},{n:"Dùng chung GPU với cả khoa",g:2,w:4},{n:"Chỉ có laptop và Colab miễn phí",g:1,w:3}];
+const STAGES=[{m:15,n:"Hình thành ý tưởng",r:"read"},{m:35,n:"Tổng quan tài liệu",r:"read"},{m:55,n:"Thiết kế và lập trình",r:"code"},{m:80,n:"Thí nghiệm",r:"exp"},{m:101,n:"Viết bài",r:"write"}];
+const FOCI={
+ read:{n:"Đọc paper",p:2.2,q:3.5,m:-1,f:0,a:0},
+ code:{n:"Code",p:5,q:1.2,m:-3,f:-1,a:0},
+ exp:{n:"Chạy thí nghiệm",p:4.2,q:3.5,m:-3,f:-4,a:0},
+ write:{n:"Viết bài",p:4.5,q:2.2,m:-3,f:0,a:0},
+ meet:{n:"Họp với GVHD",p:1.2,q:2.5,m:1,f:0,a:9},
+ rest:{n:"Nghỉ ngơi",p:0,q:0,m:11,f:0,a:0}};
+const LBL={prog:"Tiến độ",qual:"Chất lượng",mor:"Tinh thần",fund:"Kinh phí",adv:"Quan hệ GVHD"};
+
+const EVENTS=[
+ {t:"Chương trình báo lỗi lạ",d:"Mô hình cho kết quả vô lý sau ba đêm sửa. Bạn sẽ làm gì?",o:[
+  {l:"Truy nguyên nhân gốc: viết test nhỏ, cô lập từng tầng cho tới khi thấy chỗ sai",fx:{prog:3,qual:3,mor:-3},b:1},
+  {l:"Vá tạm chỗ báo lỗi cho chạy được đã",fx:{prog:2,mor:-2},r:{p:.6,fx:{prog:-5,qual:-4},m:"Lỗi thật nằm chỗ khác và quay lại cắn bạn."}},
+  {l:"Hỏi anh chị trong lab",fx:{prog:2,adv:3,mor:-1}}]},
+ {t:"Cụm GPU bị chiếm",c:s=>s.lab.g<=2,d:"Người khác chiếm hết GPU đúng tuần bạn cần chạy thí nghiệm.",o:[
+  {l:"Xếp hàng chờ",fx:{prog:-3,mor:-4}},
+  {l:"Thuê GPU cloud",fx:{fund:-12,prog:2},b:1},
+  {l:"Thu nhỏ mô hình cho vừa máy",fx:{qual:-3,prog:2}}]},
+ {t:"Đồng đội bận thi",c:s=>s.team>1,d:"Một thành viên báo bận thi cuối kỳ và chưa chia việc xong.",o:[
+  {l:"Nhận làm thay phần của bạn",fx:{prog:2,mor:-7}},
+  {l:"Họp nhóm, chia lại việc rõ ràng",fx:{prog:1,mor:2,adv:1},b:1},
+  {l:"Để bạn tự lo",fx:{prog:-2,mor:-2}}]},
+ {t:"Bài báo trùng ý tưởng vừa lên arXiv",c:s=>s.prog>=20,d:"Một nhóm nước ngoài vừa công bố hướng rất gần với bạn.",o:[
+  {l:"Đọc kỹ, tìm điểm khác biệt rồi đổi góc nhìn",fx:{qual:5,prog:-4,mor:-3},b:1},
+  {l:"Làm tiếp như không có chuyện gì",fx:{prog:2},r:{p:.5,fx:{qual:-8},m:"Phản biện sau này hỏi vì sao bạn không so sánh."}},
+  {l:"Đổi sang đề tài khác",fx:{prog:-12,mor:-6,qual:-3}}]},
+ {t:"Kết quả đẹp đến khó tin",c:s=>s.prog>=50,d:"Độ chính xác nhảy vọt. Bạn hơi nghi ngờ.",o:[
+  {l:"Kiểm tra rò rỉ dữ liệu giữa train và test",fx:{prog:-2,qual:6,mor:-2},b:1},
+  {l:"Vui quá, đưa luôn vào bài",fx:{prog:3,mor:6},r:{p:.65,fx:{qual:-18},m:"Có rò rỉ dữ liệu. Phản biện sẽ không bỏ sót.",fl:"leak"}}]},
+ {t:"GVHD đi công tác hai tuần",d:"Giảng viên nhắn: “Em cứ làm tiếp, khi về thầy/cô sẽ xem.”",o:[
+  {l:"Tự đọc thêm và chuẩn bị câu hỏi gửi thầy",fx:{qual:3,adv:2},b:1},
+  {l:"Nghỉ xả hơi",fx:{mor:8,prog:-1,adv:-3}}]},
+ {t:"Ổ cứng báo lỗi",d:"Máy cạch cạch rồi tắt. Bạn có sao lưu không?",o:[
+  {l:"Khôi phục từ bản sao lưu trên Git",fx:{mor:-1},b:1,c:s=>s.flags.bk},
+  {l:"Cố cứu dữ liệu bằng phần mềm",fx:{mor:-6,fund:-5},r:{p:.5,fx:{prog:-10},m:"Mất một phần dữ liệu thí nghiệm."}}]},
+ {t:"Học bổng NCKH",c:s=>s.fund<50,d:"Khoa mở quỹ hỗ trợ đề tài sinh viên, hồ sơ cần viết trong ba ngày.",o:[
+  {l:"Thức đêm làm hồ sơ",fx:{mor:-5,prog:-1},r:{p:.6,fx:{fund:28,adv:2},m:"Hồ sơ được duyệt."},b:1},
+  {l:"Bỏ qua",fx:{}}]},
+ {t:"Hội nghị sinh viên NCKH",d:"Có cuộc thi poster sinh viên cấp trường. Bạn có muốn trình bày bản nháp?",o:[
+  {l:"Làm poster và thuyết trình thử",fx:{prog:-2,mor:-3,qual:4,adv:4},b:1},
+  {l:"Để dành sức cho bài chính",fx:{}}]},
+ {t:"Phản biện nội bộ trong lab",c:s=>s.prog>=40,d:"Các anh chị trong lab chất vấn phương pháp của bạn khá gắt.",o:[
+  {l:"Ghi lại từng ý, sửa kỹ",fx:{qual:6,mor:-4},b:1},
+  {l:"Tự ái, cãi lại",fx:{mor:-3,adv:-4,qual:1}}]},
+ {t:"Deadline hội nghị bị đẩy sớm",c:s=>s.prog>=55,d:"Ban tổ chức đẩy hạn nộp bài lên sớm hai tuần.",o:[
+  {l:"Tăng tốc, cắt bớt thí nghiệm phụ",fx:{prog:6,qual:-3,mor:-6}},
+  {l:"Giữ kế hoạch, nhắm đợt nộp sau",fx:{prog:-1,mor:1},b:1}]},
+ {t:"Tết đến rồi",d:"Cả nhà chờ bạn về. Nhưng thí nghiệm đang chạy dở.",o:[
+  {l:"Về quê, chạy tiếp sau Tết",fx:{mor:12,prog:-2},b:1},
+  {l:"Ở lại lab canh máy",fx:{prog:4,mor:-9}}]}
+,
+ {t:"Số liệu không đẹp như kỳ vọng",c:s=>s.prog>=45,d:"Kết quả thật thấp hơn baseline một chút. Hạn nộp đang đến gần.",o:[
+  {l:"Giữ số liệu thật, viết rõ hạn chế của phương pháp",fx:{qual:4,mor:-2},b:1},
+  {l:"Chạy lại nhiều seed rồi chỉ báo cáo seed tốt nhất",fx:{qual:6,mor:2},r:{p:.4,fx:{qual:-9},m:"Phản biện yêu cầu báo cáo trung bình và độ lệch chuẩn."}},
+  {l:"Chỉnh nhẹ vài con số cho đẹp",fx:{qual:11,mor:4},fl:"cheat"}]},
+ {t:"Doanh nghiệp để ý đề tài",c:s=>s.qual>=30,d:"Một công ty công nghệ nghe về đề tài của bạn và ngỏ ý hợp tác thử nghiệm.",o:[
+  {l:"Nhận hợp tác, dùng dữ liệu thực tế của họ",fx:{fund:20,prog:-3,mor:3},fl:"startup",b:1},
+  {l:"Từ chối, tập trung công bố",fx:{qual:2}}]},
+ {t:"Tranh chấp thứ tự tác giả",c:s=>s.team>1&&s.prog>=55,d:"Hai thành viên cùng muốn đứng tên đầu trên bản thảo.",o:[
+  {l:"Thống nhất công khai theo mức đóng góp",fx:{mor:2,adv:2},b:1},
+  {l:"Đòi đứng tên đầu",fx:{mor:-4,adv:-5},fl:"dispute"},
+  {l:"Nhường để yên chuyện",fx:{mor:-3}}]},
+ {t:"Mất ngủ kéo dài",c:s=>s.mor<50,d:"Đã một tuần bạn ngủ chưa đến năm tiếng mỗi đêm.",o:[
+  {l:"Ngủ đủ giấc, hôm sau làm bù",fx:{mor:10,prog:-1},b:1},
+  {l:"Thêm cà phê, thức tiếp",fx:{prog:3,mor:-8}}]},
+ {t:"Dùng AI hỗ trợ viết bài",c:s=>s.prog>=40,d:"Bạn đang tắc ở phần related work.",o:[
+  {l:"Dùng để hiểu khái niệm, rồi tự kiểm chứng nguồn",fx:{qual:3,prog:1},b:1},
+  {l:"Dán nguyên văn vào bản thảo",fx:{prog:4},r:{p:.55,fx:{qual:-8},m:"Phản biện chỉ ra những trích dẫn không tồn tại."}}]},
+ {t:"Bạn bè rủ đi chơi",c:s=>s.mor<65,d:"Cả hội rủ đi cà phê tối nay, bạn đang rất mệt.",o:[
+  {l:"Đi một buổi cho nhẹ đầu",fx:{mor:9,prog:-1},b:1},
+  {l:"Từ chối, ở lại làm",fx:{prog:2,mor:-3}}]},
+ {t:"GVHD đề nghị đổi hướng",c:s=>s.adv>=50&&s.prog>=20&&s.prog<70,d:"Giảng viên cho rằng hướng hiện tại khó ra kết quả đáng kể.",o:[
+  {l:"Nghe theo và điều chỉnh kế hoạch",fx:{qual:4,prog:-6,adv:3}},
+  {l:"Trình bày vì sao bạn muốn giữ hướng cũ",fx:{qual:2,adv:-1},b:1}]},
+ {t:"Quên ghi lại cấu hình thí nghiệm",c:s=>s.prog>=45,d:"Lần chạy tốt nhất tuần trước không ai nhớ đã dùng tham số nào.",o:[
+  {l:"Lưu cấu hình, seed và commit cho từng lần chạy",fx:{prog:-1,qual:3},b:1},
+  {l:"Nhớ đại khái là được",fx:{prog:1},r:{p:.6,fx:{prog:-7,qual:-3},m:"Không tái lập được kết quả tốt nhất."}}]},
+ {t:"Khóa dưới xin tham gia",c:s=>s.team<5,d:"Một bạn năm nhất rất nhiệt tình xin vào nhóm.",o:[
+  {l:"Nhận và hướng dẫn bạn ấy",fx:{prog:-1,mor:2},tm:1,b:1},
+  {l:"Từ chối vì sợ chậm tiến độ",fx:{}}]},
+ {t:"Mất điện cả khu",d:"Phòng lab mất điện suốt một buổi chiều.",o:[
+  {l:"Tranh thủ đọc paper trên điện thoại",fx:{qual:3},b:1},
+  {l:"Ngồi chờ có điện",fx:{prog:-2}}]}
+];
+const MILES={3:["Vì sao bạn bắt đầu?","Bạn làm NCKH vì tò mò, vì điểm cộng hay vì thầy giao? Điều đó đổi cách bạn làm việc thế nào?"],
+ 9:["Kết quả chưa như ý","Khi thí nghiệm không ra như mong đợi, nguyên nhân nằm ở dữ liệu, mô hình hay chính giả thuyết của bạn?"],
+ 15:["Điều gì khiến đáng giá?","Nếu công trình này không được đăng ở đâu cả, bạn vẫn thấy xứng đáng chứ? Vì sao?"],
+ 21:["Lời cảm ơn","Ai đã giúp bạn đi đến đây mà bạn chưa kịp cảm ơn?"]};
+
+let S,run=0,lastT=0,acc=0,PV={},net=null;
+const MS=3600,KS={prog:"vp",qual:"vq",mor:"vm",fund:"vf",adv:"va"};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const prng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const sky=document.createElement("div");sky.id="sky";document.body.prepend(sky);
+const hue=()=>{sky.style.background=`radial-gradient(120% 60% at 50% -10%,hsl(${(340+(S?S.m:0)*9)%360} 80% 60%/.2),transparent 70%)`};hue();
+
+/* ---------- QR (tự viết, chạy offline, phiên bản 1–5, mức L) ---------- */
+function qrSvg(text){
+  const d=[...new TextEncoder().encode(text)],T=[[19,7],[34,10],[55,15],[80,20],[108,26]];
+  const v=T.findIndex(t=>t[0]-2>=d.length);if(v<0)return"";
+  const [dc,ec]=T[v],n=21+4*v,bits=[];
+  const pb=(x,l)=>{for(let i=l-1;i>=0;i--)bits.push((x>>i)&1)};
+  pb(4,4);pb(d.length,8);d.forEach(b=>pb(b,8));pb(0,Math.min(4,dc*8-bits.length));while(bits.length%8)bits.push(0);
+  const cw=[];for(let i=0;i<bits.length;i+=8)cw.push(parseInt(bits.slice(i,i+8).join(""),2));
+  for(let p=0xEC;cw.length<dc;p^=0xFD)cw.push(p);
+  const E=[],L=[];let x=1;for(let i=0;i<255;i++){E[i]=x;L[x]=i;x<<=1;if(x>255)x^=285}
+  const ml=(a,b)=>a&&b?E[(L[a]+L[b])%255]:0;
+  let g=[1];for(let i=0;i<ec;i++){const q=Array(g.length+1).fill(0);g.forEach((c,j)=>{q[j]^=c;q[j+1]^=ml(c,E[i])});g=q}
+  const rm=Array(ec).fill(0);cw.forEach(b=>{const f=b^rm.shift();rm.push(0);g.slice(1).forEach((c,j)=>rm[j]^=ml(c,f))});
+  const db=[];cw.concat(rm).forEach(b=>{for(let i=7;i>=0;i--)db.push((b>>i)&1)});
+  const m=[...Array(n)].map(()=>Array(n).fill(0)),f=[...Array(n)].map(()=>Array(n).fill(0));
+  const set=(x,y,v)=>{if(x>=0&&y>=0&&x<n&&y<n){m[y][x]=v;f[y][x]=1}};
+  for(const [cx,cy] of [[3,3],[n-4,3],[3,n-4]])for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const e=Math.max(Math.abs(dx),Math.abs(dy));set(cx+dx,cy+dy,e!==2&&e!==4?1:0)}
+  for(let i=8;i<n-8;i++){set(6,i,1-i%2);set(i,6,1-i%2)}
+  if(v>0)for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(n-7+dx,n-7+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1?1:0);
+  let rem=8<<10;for(let i=14;i>=10;i--)if((rem>>i)&1)rem^=0x537<<(i-10);
+  const fb=((8<<10)|rem)^0x5412,bt=i=>(fb>>i)&1;
+  for(let i=0;i<=5;i++)set(8,i,bt(i));set(8,7,bt(6));set(8,8,bt(7));set(7,8,bt(8));for(let i=9;i<15;i++)set(14-i,8,bt(i));
+  for(let i=0;i<8;i++)set(n-1-i,8,bt(i));for(let i=8;i<15;i++)set(8,n-15+i,bt(i));set(8,n-8,1);
+  let k=0;
+  for(let c=n-1;c>=1;c-=2){if(c===6)c=5;
+    for(let vt=0;vt<n;vt++)for(let j=0;j<2;j++){const x=c-j,y=((c+1)&2)===0?n-1-vt:vt;
+      if(!f[y][x]){let b=k<db.length?db[k++]:0;if((x+y)%2===0)b^=1;m[y][x]=b}}}
+  let p="";for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(m[y][x])p+=`M${x+4},${y+4}h1v1h-1z`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n+8} ${n+8}" width="168" height="168" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${p}" fill="#000"/></svg>`;
+}
+
+/* ---------- Nhiều người chơi (qua server.js trong mạng LAN) ---------- */
+async function api(path,body){const r=await fetch(path,body?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}:{});return r.json()}
+function board(L){const me=net.id;
+  return L.map(p=>({...p,e:p.done?p.score:Math.round(p.prog*.4+p.qual*.6)})).sort((a,b)=>b.e-a.e)
+   .map(p=>`<div><span class="${p.id===me?"me":""}">${esc(p.name)}</span><span><div class="bar"><i style="width:${p.prog||0}%"></i></div></span><span>${p.done?"🏁 "+esc(p.out):"Th."+(p.m||0)}</span></div>`).join("")}
+function push(done,out,score){if(!net||!net.room||!S)return;
+  api("/api/update",{room:net.room,id:net.id,p:{m:S.m,prog:Math.round(S.prog),qual:Math.round(S.qual),mor:Math.round(S.mor),done:!!done,out,score}}).catch(()=>{})}
+async function poll(){
+  if(!net||!net.room)return;
+  try{const r=await api("/api/room?room="+net.room);
+    $("plist").innerHTML=r.players.map(p=>`<div><span class="${p.id===net.id?"me":""}">${esc(p.name)}</span><span></span><span>${p.id===r.host?"chủ phòng":""}</span></div>`).join("");
+    const b=board(r.players);["lb","lb2"].forEach(i=>{if($(i))$(i).innerHTML=b});
+    if(r.started&&!net.began){net.began=true;born(r.seed)}
+  }catch(e){}
+}
+function showQR(){
+  const loc=/^(localhost|127\.|\[::1\])/.test(location.hostname);
+  const bases=loc&&net.ips.length?net.ips.map(ip=>`http://${ip}:${net.port}/`):[location.origin+"/"];
+  const draw=b=>{const u=b+"#"+net.room;$("qr").innerHTML=qrSvg(u);$("ru").textContent=u};
+  const s=$("ipsel");if(bases.length>1){s.innerHTML=bases.map(b=>`<option>${b}</option>`).join("");s.classList.remove("hid");s.onchange=()=>draw(s.value)}
+  draw(bases[0]);
+}
+async function join(){
+  const name=$("nm").value.trim()||"Người chơi "+RI(10,99);
+  const code=net.want||Array.from({length:4},()=>"ABCDEFGHJKLMNPQRSTUVWXYZ"[RI(0,23)]).join("");
+  const r=await api("/api/join",{room:code,name});if(r.error)return;
+  Object.assign(net,{room:code,id:r.id,host:r.host});
+  ["jn","nm"].forEach(i=>$(i).classList.add("hid"));$("room").classList.remove("hid");$("rc").textContent=code;
+  $("go").classList.toggle("hid",!r.host);$("wt").textContent=r.host?"":"Đang chờ chủ phòng bắt đầu…";
+  showQR();setInterval(poll,1200);poll();
+}
+async function initNet(){
+  if(!/^https?:/.test(location.protocol))return;
+  try{const i=await api("/api/info");net={ips:i.ips||[],port:i.port,room:null,id:null,began:false}}catch(e){return}
+  $("lobby").classList.remove("hid");$("nonet").classList.add("hid");
+  const h=location.hash.slice(1).toUpperCase().replace(/[^A-Z0-9]/g,"");
+  if(h){net.want=h;$("jn").textContent="Vào phòng "+h}
+  $("jn").onclick=join;$("go").onclick=()=>api("/api/start",{room:net.room,id:net.id});
+}
+
+/* ---------- Trò chơi ---------- */
+function born(seed){
+  if(seed!=null)RND=prng(seed);
+  S={m:0,prog:0,qual:8,mor:70,fund:RI(15,70),adv:0,team:RI(1,5),skill:RI(30,65),
+     advr:wpick(ADVS),lab:wpick(LABS),major:pick(MAJORS),year:RI(2,4),topic:pick(TOPICS),seed:seed==null?null:seed,
+     focus:"read",speed:1,auto:false,paused:false,modal:false,used:[],notes:[],flags:{bk:RND()<.5},logs:[]};
+  RND=Math.random;
+  S.adv=Math.round(S.advr.s*.8);PV={};
+  $("intro").classList.add("hid");$("end").classList.add("hid");$("game").classList.remove("hid");
+  $("lbc").classList.toggle("hid",!(net&&net.room));
+  $("tl").innerHTML=Array.from({length:24},(_,i)=>`<i class="${MILES[i+1]?"ms":""}"></i>`).join("");
+  $("prof").innerHTML=`<div class="big">Bạn là sinh viên năm ${S.year}, ngành ${S.major}.</div>
+  <p style="margin:8px 0">Đề tài được giao: <b>${S.topic}</b>.</p>
+  <div class="grid"><div class="kv"><b>Giảng viên hướng dẫn</b>${S.advr.n}</div><div class="kv"><b>Phòng lab</b>${S.lab.n}</div>
+  <div class="kv"><b>Nhóm</b>${S.team===1?"Một mình":S.team+" thành viên"}</div><div class="kv"><b>Nền tảng</b>${S.skill>=55?"Khá vững":S.skill>=42?"Trung bình":"Còn non"}</div></div>
+  <p class="mu" style="margin:8px 0 0">Bạn không chọn được những điều này. Phần còn lại là của bạn.</p>`;
+  $("log").innerHTML="";log("Dự án bắt đầu. Bạn nhận đề tài từ giảng viên hướng dẫn.");
+  $("auto").textContent="Chế độ tự động: tắt";$("pz").textContent="⏸ Dừng";
+  document.querySelectorAll(".sp").forEach(x=>x.classList.toggle("on",x.dataset.sp==="1"));
+  setFocus("read");ui();push();start();
+}
+function stage(){return STAGES.find(x=>S.prog<x.m)||STAGES[4]}
+function pop(id,d){const e=document.createElement("b");e.className="pop "+(d>0?"up":"dn");e.textContent=(d>0?"+":"−")+Math.abs(d);$(id).parentNode.appendChild(e);setTimeout(()=>e.remove(),1300)}
+function ui(){
+  const st=stage();
+  $("mo").textContent=`Tháng ${S.m}/24`;$("stage").textContent=st.n;
+  $("hint").textContent="Gợi ý: "+FOCI[st.r].n;
+  $("bp").style.width=S.prog+"%";$("vp").textContent=Math.round(S.prog);
+  [["q","qual"],["m","mor"],["f","fund"],["a","adv"]].forEach(([k,v])=>{$("b"+k).style.width=S[v]+"%";$("v"+k).textContent=Math.round(S[v])});
+  for(const k in KS){const v=Math.round(S[k]);if(PV[k]!=null&&v!==PV[k])pop(KS[k],v-PV[k]);PV[k]=v}
+  [...$("tl").children].forEach((e,i)=>{e.classList.toggle("d",i<S.m);e.classList.toggle("cur",i===S.m)});
+  hue();
+}
+function setFocus(k){S.focus=k;document.querySelectorAll("#foci button").forEach(b=>b.classList.toggle("on",b.dataset.k===k))}
+function fmt(fx){return Object.keys(fx).map(k=>`${LBL[k]} ${fx[k]>0?"+":"−"}${Math.abs(fx[k])}`).join(" · ")}
+function apply(fx){for(const k in fx)S[k]=cl(S[k]+fx[k])}
+function flash(c){const e=$("sc");e.classList.remove(c);void e.offsetWidth;e.classList.add(c)}
+function log(t,c){S.logs.push(t);const d=document.createElement("div");d.innerHTML=`<small>Th${S.m}</small> <span class="${c||""}">${t}</span>`;$("log").prepend(d);if(c==="bad")flash("shake");if(c==="good")flash("glow")}
+
+function start(){
+  const id=++run;lastT=0;acc=0;
+  const f=t=>{
+    if(id!==run)return;
+    const dt=Math.min(100,t-(lastT||t));lastT=t;
+    if(!S.paused&&!S.modal){acc+=dt*S.speed;if(acc>=MS){acc=0;step();if(id!==run)return}}
+    $("mb").style.width=Math.min(100,acc/MS*100)+"%";
+    requestAnimationFrame(f)};
+  requestAnimationFrame(f);
+}
+function step(){
+  if(S.auto){const st=stage();setFocus(S.mor<35?"rest":S.adv<30?"meet":st.r)}
+  const f=FOCI[S.focus];
+  let k=(.75+.1*S.team)*(.7+S.skill/150)*(.9+S.adv/500);
+  if(S.focus==="exp"||S.focus==="code")k*=.6+.2*S.lab.g;
+  if(S.focus==="exp"&&S.fund<=0)k*=.4;
+  if(S.focus==="write"&&S.prog<45)k*=.5;
+  if(S.focus==="exp"&&S.prog<30)k*=.5;
+  if(S.mor<25)k*=.6;
+  S.m++;
+  S.prog=cl(S.prog+f.p*k);
+  S.qual=cl(S.qual+f.q*k*(1-S.qual/130));
+  S.mor=cl(S.mor+f.m+(S.adv>60?1:0));
+  S.fund=cl(S.fund+f.f);
+  S.adv=cl(S.adv+f.a-1);
+  if(S.focus==="exp"&&S.fund<=0&&S.m%3===0)log("Hết kinh phí, thí nghiệm chậm hẳn lại.","bad");
+  const mo=$("mo");mo.classList.remove("bump");void mo.offsetWidth;mo.classList.add("bump");
+  ui();push();
+  if(S.mor<=0)return finish("burnout");
+  if(S.prog>=100||S.m>=24)return finish("submit");
+  if(MILES[S.m])return milestone(S.m);
+  const r=S.seed!=null?prng(S.seed+S.m*977):Math.random;
+  if(r()<.42){
+    const pool=EVENTS.filter((e,i)=>(e.i=i,!S.used.includes(i))&&(!e.c||e.c(S)));
+    if(pool.length){const e=pool[Math.floor(r()*pool.length)];S.used.push(e.i);return event(e)}
+  }
+}
+function openModal(h){S.modal=true;$("mbox").innerHTML=h;$("modal").classList.remove("hid")}
+function closeModal(){if(S)S.modal=false;$("modal").classList.add("hid")}
+function event(e){
+  const opts=e.o.filter(o=>!o.c||o.c(S));
+  openModal(`<h3>${e.t}</h3><p>${e.d}</p>`+opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.l}</button>`).join(""));
+  const choose=i=>{
+    const o=opts[i],lb=o.l.length>50?o.l.slice(0,48)+"…":o.l;let msg=`${e.t}: “${lb}”. `;
+    apply(o.fx);if(o.fl)S.flags[o.fl]=1;if(o.tm)S.team=Math.min(5,S.team+o.tm);let t=fmt(o.fx);
+    if(o.r&&Math.random()<o.r.p){apply(o.r.fx);if(o.r.fl)S.flags[o.r.fl]=1;t+=" | "+o.r.m+" ("+fmt(o.r.fx)+")";log(msg+t,"bad")}
+    else log(msg+t,o.b?"good":"");
+    closeModal();ui();if(S.mor<=0)finish("burnout");
+  };
+  $("mbox").querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.i));
+  if(S.auto)setTimeout(()=>{if(S.modal){const bi=opts.findIndex(o=>o.b);choose(Math.random()<.7&&bi>=0?bi:RI(0,opts.length-1))}},1400);
+}
+function milestone(m){
+  const [t,q]=MILES[m];
+  openModal(`<div class="mu">Thời gian dừng lại · Tháng ${m}</div><h3>${t}</h3><p>${q}</p>
+  <textarea id="note" rows="3" placeholder="Để lại một dòng nếu bạn muốn (không bắt buộc)"></textarea>
+  <button class="pri" id="okm" style="margin-top:12px">Tiếp tục</button>`);
+  const go=()=>{const v=$("note").value.trim();if(v){S.notes.push({m,q:t,v});log("Bạn để lại một dòng ở tháng "+m+".")}
+    apply({mor:4});closeModal();ui()};
+  $("okm").onclick=go;if(S.auto)setTimeout(()=>S.modal&&go(),2200);
+}
+function ending(why,sc){
+  const F=S.flags;
+  if(why==="burnout")return["Bạn kiệt sức và dừng lại","Tinh thần cạn trước khi bài hoàn thành. Dừng lại để hồi phục không phải là thất bại, và những gì bạn học được vẫn còn nguyên.","bad"];
+  if(F.cheat&&Math.random()<.65)return["Bị phát hiện gian lận học thuật","Số liệu bị chỉnh sửa không qua nổi bước tái lập. Bài bị rút và bạn phải giải trình trước hội đồng khoa học.","bad"];
+  if(F.leak&&sc<75)return["Bài bị rút lại sau khi đăng","Cộng đồng tái lập kết quả và phát hiện rò rỉ dữ liệu. Một bài học đắt giá về kiểm chứng.","bad"];
+  if(F.dispute&&S.adv<55&&sc>=48)return["Bài được nhận, nhóm thì rạn nứt","Tranh chấp thứ tự tác giả khiến khoa phải vào cuộc phân xử. Công bố vẫn còn, tình đồng đội thì không.","bad"];
+  if(S.prog<100&&S.m>=24&&sc<45)return["Lỡ hạn, bài chưa hoàn thành","24 tháng trôi qua mà bản thảo vẫn dang dở. Bạn có nền tảng để làm tiếp, chỉ là không kịp lần này.","bad"];
+  if(F.startup&&sc>=52)return["Đề tài trở thành sản phẩm khởi nghiệp","Doanh nghiệp đồng hành đưa kết quả của bạn ra thị trường. Bạn vừa có bài báo, vừa có khách hàng đầu tiên.","good"];
+  if(sc>=90)return["Giải bài báo xuất sắc nhất","Hội đồng chọn bài của bạn trong số hàng trăm bài. Thiết kế thí nghiệm được nhắc đến trong phần trao giải.","good"];
+  if(sc>=78)return["Được nhận tại hội nghị hàng đầu","Phản biện khen thiết kế thí nghiệm chặt chẽ. Tên bạn xuất hiện trong kỷ yếu.","good"];
+  if(sc>=62)return["Được nhận đăng tạp chí Q1","Sau một vòng sửa lớn, bài được chấp nhận.","good"];
+  if(sc>=48)return["Được nhận ở tạp chí Q3 hoặc hội nghị khu vực","Không quá hào nhoáng, nhưng đây là công bố đầu tiên của bạn.","good"];
+  if(sc>=34)return["Đoạt giải NCKH sinh viên","Bài chưa đủ sức lên tạp chí, nhưng hội đồng ghi nhận công sức của nhóm.","good"];
+  if(sc>=22)return["Hoàn thành thành báo cáo kỹ thuật","Chưa đủ để công bố, nhưng đủ để làm nền cho khóa luận tốt nghiệp.",""];
+  return["Bị từ chối, nhưng đã học được nhiều","Reviewer 2 nói không. Bạn có những nhận xét chi tiết để làm tốt hơn ở lần sau.",""];
+}
+function epi(why,sc){const a=[];
+  if(S.adv>=75)a.push("Giảng viên hướng dẫn mời bạn ở lại lab làm tiếp.");
+  if(S.adv<30)a.push("Bạn rời dự án với cảm giác thiếu người dẫn đường.");
+  if(S.mor>=70)a.push("Bạn vẫn còn đủ năng lượng cho dự án tiếp theo.");
+  if(S.mor<30&&why!=="burnout")a.push("Bạn cần nghỉ ngơi dài sau chặng này.");
+  if(S.team>=4&&sc>=50)a.push("Cả nhóm cùng đứng tên trên công bố.");
+  if(S.team===1)a.push("Bạn đi qua toàn bộ hành trình một mình, nên mọi bài học đều là của riêng bạn.");
+  if(S.lab.g===1&&sc>=50)a.push("Làm được đến mức này chỉ với laptop và Colab miễn phí là rất đáng nể.");
+  return a.slice(0,3)}
+function confetti(){const c=["#e0698a","#f0b84a","#5cc08a","#6aa8f0"];for(let i=0;i<46;i++){const e=document.createElement("i");e.className="conf";e.style.cssText=`left:${Math.random()*100}vw;background:${c[i%4]};animation-delay:${Math.random()*.8}s;animation-duration:${2+Math.random()*1.6}s`;document.body.appendChild(e);setTimeout(()=>e.remove(),4600)}}
+function finish(why){
+  run++;closeModal();
+  const sc=Math.max(0,Math.min(100,Math.round(S.qual*.6+S.adv*.1+S.skill*.1+RI(-14,14)+(S.prog>=100?12:-(100-S.prog)*.3))));
+  const [out,sub,tone]=ending(why,sc),ep=epi(why,sc);
+  $("game").classList.add("hid");$("end").classList.remove("hid");
+  $("end").innerHTML=`<div class="mu">Kết thúc sau ${S.m} tháng</div><h1 style="font-size:34px">${out}</h1><p>${sub}</p>
+  <div class="card"><div class="grid">
+  <div class="kv"><b>Tiến độ</b>${Math.round(S.prog)}%</div><div class="kv"><b>Chất lượng</b>${Math.round(S.qual)}</div>
+  <div class="kv"><b>Tinh thần</b>${Math.round(S.mor)}</div><div class="kv"><b>Quan hệ với GVHD</b>${Math.round(S.adv)}</div></div>
+  <p class="mu" style="margin:10px 0 0">Đề tài: ${S.topic}. Xuất phát: ${S.advr.n.toLowerCase()}; ${S.lab.n.toLowerCase()}; ${S.team===1?"làm một mình":"nhóm "+S.team+" người"}.</p></div>
+  ${ep.length?`<ul class="n">${ep.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}
+  ${S.notes.length?`<div class="card"><b>Những dòng bạn để lại</b><ul class="n">${S.notes.map(n=>`<li><span class="mu">Tháng ${n.m} · ${n.q}:</span> ${esc(n.v)}</li>`).join("")}</ul></div>`:""}
+  <div class="card ${net&&net.room?"":"hid"}"><b>Bảng xếp hạng phòng</b><div class="lb" id="lb2"></div></div>
+  <p class="mu">Cùng một đề tài, với một giảng viên hay một phòng lab khác, câu chuyện có thể rất khác. Điều đó đúng với cả công trình lẫn người làm ra nó.</p>
+  <button class="pri" id="again">Chơi lại với một số phận khác</button>`;
+  $("again").onclick=()=>born();
+  push(true,out,sc);poll();
+  if(tone==="good")confetti();
+}
+
+$("foci").innerHTML=Object.entries(FOCI).map(([k,v])=>`<button data-k="${k}">${v.n}</button>`).join("");
+$("foci").onclick=e=>{const k=e.target.dataset.k;if(k){S.auto=false;$("auto").textContent="Chế độ tự động: tắt";setFocus(k)}};
+$("born").onclick=()=>born();
+$("pz").onclick=()=>{S.paused=!S.paused;$("pz").textContent=S.paused?"▶ Tiếp tục":"⏸ Dừng"};
+document.querySelectorAll(".sp").forEach(b=>b.onclick=()=>{S.speed=+b.dataset.sp;document.querySelectorAll(".sp").forEach(x=>x.classList.toggle("on",x===b))});
+$("auto").onclick=()=>{S.auto=!S.auto;$("auto").textContent="Chế độ tự động: "+(S.auto?"bật":"tắt")};
+document.addEventListener("keydown",e=>{if(e.code==="Space"&&S&&!S.modal&&!$("game").classList.contains("hid")&&e.target.tagName!=="TEXTAREA"&&e.target.tagName!=="INPUT"){e.preventDefault();$("pz").click()}});
+initNet();
+</script>
+</body>
+</html>
